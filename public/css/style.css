@@ -72,6 +72,11 @@ label[for="recipes_search"] {
     align-items: center;
 }
 
+#recipes_list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .ingredients_card {
     width: 380px;
     height: 364px;
