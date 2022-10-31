@@ -72,6 +72,92 @@ label[for="recipes_search"] {
     align-items: center;
 }
 
+.ingredients_card {
+    width: 380px;
+    height: 364px;
+    margin : 0px 50px 50px 0px;
+}
+
+.ingredients_card:nth-of-type(3n) {
+    
+    margin-right: unset;
+}
+
+.ingredients_card .decoration {
+    width: 100%;
+    height: 178px;    
+    background: #C7BEBE;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.ingredients_descrtiption {
+    height: 186px;
+    background-color: #E7E7E7;    
+    border-radius: 0px 0px 5px 5px;
+    padding : 20px;
+    box-sizing: border-box;
+}
+
+
+.ingredients_descrtiption .dish_title {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    margin-top: 0px;
+}
+
+.ingredients_descrtiption .fa-clock {
+    width: 20px;
+    height: 20px;
+}
+
+.ingredients_descrtiption .time {
+    font-weight: 700;
+}
+
+.ingredients_descrtiption .preparation {
+    height: 84px;
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 100%;
+}
+
+.ingredients_descrtiption p {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.ingredients_descrtiption p>* {
+    width: 171px;
+    font-family: Lato;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.ingredients_descrtiption p .components .component_title,
+.ingredients_descrtiption p .servings .servings_label {
+    font-weight: 700;    
+}
+
+
+.ingredients_descrtiption p .components .component_quantity,
+.ingredients_descrtiption p .servings .servings_quantity {    
+    font-weight: 400;     
+}
+
+.ingredients_descrtiption .dish_title .preparation_time {    
+    white-space: nowrap;  
+}
+
 .none {
     display: none!important;
 }
