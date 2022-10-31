@@ -35,7 +35,6 @@ class ParticularButton {
         firstSearch.addEventListener("focus", (e) => {
             
            document.addEventListener("keyup", (e) => {
-                console.log(e.key)
                 if (e.key == "Shift") {
                     this.closeArea(null)
                 }

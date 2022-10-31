@@ -68,7 +68,9 @@ class Tag {
 
         tag.classList.add("active")
         
-        this.desactiveTag(tag)      
+        this.desactiveTag(tag) 
+        
+        this.searchTag(tag)
     }
 
     activeTagEvent(tag) {
@@ -151,6 +153,26 @@ class Tag {
             } 
         }        
     }
+
+        // Filtrage des recettes en fonction du tag sélectionnés
+        searchTag(tag) {
+
+            if (tag.dataset.search_item == "ingredient") {
+    
+                const ingredientContaining = new SearchForm(this.Recipes,tag,this.recipesList,new SearchByIngredient(this.Recipes))
+                ingredientContaining.render()          
+    
+            } else if(tag.dataset.search_item == "appliance") {            
+    
+                const applianceContaining = new SearchForm(this.Recipes,tag,this.recipesList,new SearchByAppliance(this.Recipes))
+                applianceContaining.render()           
+    
+            } else if (tag.dataset.search_item == "ustensils") {
+    
+                const ustensilsContaining = new SearchForm(this.Recipes,tag,this.recipesList,new SearchByUstensils(this.Recipes))
+                ustensilsContaining.render()                      
+            }
+        }
 
     // Attribution de la propriiété "disabled" au bouton de liste selectionné et de celle title
     disabledAttribution(e) {
