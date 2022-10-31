@@ -16,7 +16,15 @@ class App {
             const Template = new RecipesCard(recipe)
             this.recipesList.appendChild(Template.createCard())                    
         })
-    }
+
+        // Insertion des zones de recherche par critères
+        const particularButton = new ParticularButton()
+        particularButton.init()
+
+        // Insertion  des lists aux zones de recherche par critères
+        let lists = new ParticularButtonList(recipesDatas)
+        lists.init()
+}
 }
 
 const app = new App()
