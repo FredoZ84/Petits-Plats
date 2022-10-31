@@ -349,3 +349,112 @@ label[for="recipes_search"] {
 .none {
     display: none!important;
 }
+
+@media screen and (max-width: 1260px)  {
+    body {
+        max-width: 80%;
+    }
+
+    #recipes_list {
+        margin: 0 auto;
+        justify-content: center;
+    }
+
+    #particular_search_area {
+        justify-content: space-between;
+    }
+
+    .ingredients_card:nth-of-type(3n) {
+    
+        margin-right: 50px;
+    }    
+}
+
+@media screen and (max-width: 768px)  {
+
+    
+    #particular_search_area {
+        flex-direction: column;
+    }
+
+    #particular_search_area>* {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    #recipes_list>* {
+        margin-right: unset;
+    }
+
+    .particular_search_list {
+        max-width:unset;
+    }
+
+    .particular_search_list input[type="button"] {
+        width: 140px;
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 576px)  {
+    #logo {
+        width: 95%;
+    }
+
+    #search_by_tag_area {
+        justify-content: space-between;
+    }
+
+    #search_by_tag_area>* {
+        margin-bottom: 10px;
+    }
+
+    .particular_search {
+        padding-left: 0px;
+    }
+
+    .particular_search .particular_head {
+        width: 105%;
+    }
+
+    .particular_search .particular_search_list  {
+        width: 112%;
+    }
+    .particular_search input {
+        padding-left: 5px;
+    }
+
+    .particular_search .particular_search_input {
+        font-size: 15px;
+    }
+
+    .particular_search .particular_search_list {
+        overflow-y: scroll;
+        height: 150px;
+    }    
+
+    .ingredients_card .decoration {
+        height: 70px;
+    }
+
+    .ingredients_descrtiption  {
+        height: unset;
+        max-height: 335px;
+        min-height: 220px;
+        padding: 10px;
+    }
+
+    .ingredients_descrtiption .dish_title {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .ingredients_descrtiption p {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ingredients_descrtiption p>* {
+        margin-bottom: 10px;
+    }    
+}
