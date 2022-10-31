@@ -21,9 +21,17 @@ class App {
         const particularButton = new ParticularButton()
         particularButton.init()
 
+        let particularSearchList = Array.from(document.getElementsByClassName("particular_search_list"))
+
+        particularSearchList.forEach(list =>{
+            
+            const Template = new ParticularButtonList(recipesDatas,list)
+            Template.init()
+        })
+
         // Insertion  des lists aux zones de recherche par critères
-        let lists = new ParticularButtonList(recipesDatas)
-        lists.init()
+        /*let lists = new ParticularButtonList(recipesDatas)
+        lists.init()*/
 
         // Filtrage de recette principal
         const SearchRecipes = new SearchForm(recipesDatas,this.recipesSearch,this.recipesList,new RecipesSearch(recipesDatas))
@@ -41,10 +49,11 @@ class App {
     // Methide de filtrage de critère
     searchListParticular(Datas,buttonData) {
 
-        const particularButtonList = new ParticularButtonList()
-        const list = particularButtonList.filteredList(Datas,buttonData.searchItem)
-        const input = document.getElementById(buttonData.name +"_search")
         const area = document.getElementById(buttonData.name +"_list")
+        const particularButtonList = new ParticularButtonList(Datas,area)
+        const list = particularButtonList.filteredList(buttonData.searchItem)
+        const input = document.getElementById(buttonData.name +"_search")
+        
         const searchObject = new ParticularSearch(area)
 
         const SearchElements = new SearchForm(list,input,area,searchObject)

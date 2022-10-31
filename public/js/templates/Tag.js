@@ -12,7 +12,7 @@ class Tag {
 
         searchItem.addEventListener("keyup", (e) => {      
             
-            if (e.key == "Enter") { this.createTag(e.target)  }            
+            if (e.key == "Enter") { this.createTag(e.target) }            
         }) 
 
         // Attribution de la propriété disabled au bouton de liste de référence si tag existant
@@ -30,8 +30,8 @@ class Tag {
 
         listArea.classList.add("none") // masquage de la liste 
 
-        let inputSearch = e.parentElement.previousElementSibling.firstElementChild 
-
+        let inputSearch = e.parentElement.previousElementSibling.firstElementChild
+        
         inputSearch.value = inputSearch.getAttribute("data-value_initial")
         
         let searchArea = e.parentElement.parentElement // zone de recherche correspondante
@@ -55,6 +55,16 @@ class Tag {
         this.activeTagEvent(tag)
 
         this.removeTag(tag)
+
+        if (inputSearch.dataset.filtering) {
+
+            listArea.innerHTML = ""
+
+            let Template = new ParticularButtonList(this.Recipes,listArea)
+            Template.init() 
+
+            inputSearch.dataset.filtering = false
+        }
 
     }
 
@@ -154,8 +164,8 @@ class Tag {
         }        
     }
 
-        // Filtrage des recettes en fonction du tag sélectionnés
-        searchTag(tag) {
+    // Filtrage des recettes en fonction du tag sélectionnés
+    searchTag(tag) {
 
             if (tag.dataset.search_item == "ingredient") {
     
@@ -172,7 +182,7 @@ class Tag {
                 const ustensilsContaining = new SearchForm(this.Recipes,tag,this.recipesList,new SearchByUstensils(this.Recipes))
                 ustensilsContaining.render()                      
             }
-        }
+    }
 
     // Attribution de la propriiété "disabled" au bouton de liste selectionné et de celle title
     disabledAttribution(e) {

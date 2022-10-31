@@ -1,51 +1,39 @@
 class ParticularButtonList {
-    constructor(Recipes) {
+    constructor(Recipes,area) {
         this.recipes = Recipes
-        this.areas = document.querySelectorAll(".particular_search_list")       
+        this.area = area    
     }
     
     //Retoune la liste avec l'input tag
     init() {    
         
-        let filteredList = []
-        let formatList = []
+        let filteredList = this.filteredList(this.area.dataset.search_item)// liste non formattée
 
-        for (let i = 0; i < this.areas.length; i++) {
-
-            filteredList[i] = this.filteredList(this.recipes,this.areas[i].dataset.search_item)// liste non formattée 
-
-            formatList[i] = this.searchItemFormatAll(filteredList[i],this.areas[i]) // formattage des listes            
-        }
-
-        let searchItems = document.querySelectorAll(".particular_search_list input[type=\"button\"]")
-
-        for (let i = 0; i < searchItems.length; i++) {
-            this.presetEffects(searchItems[i])
-        }
+        this.searchItemFormatAll(filteredList,this.area) // formattage des listes
     }    
 
     // Retourne la liste filtrée des éléments de recherche particulière
-    filteredList(recipes,searchItem) {
-        let array = []    
+    filteredList(searchItem) {
+        let array = []         
         
-        for (let i = 0; i < recipes.length; i++) {
+        for (let i = 0; i < this.recipes.length; i++) {
 
             let element
 
             switch (searchItem) {
                 case "ingredient":
-                    element = recipes[i].ingredients
+                    element = this.recipes[i].ingredients
                     for (let object = 0; object < element.length; object++) {
 
                         array[i] =  element[object][searchItem]
                     } 
                 break
                 case "appliance":
-                    element = recipes[i].appliance
+                    element = this.recipes[i].appliance
                     array[i] =  element
                 break
                 case "ustensils":
-                    element = recipes[i].ustensils
+                    element = this.recipes[i].ustensils
                     for (let object = 0; object < element.length; object++) {
 
                         array[i] =  element[object]
@@ -71,30 +59,28 @@ class ParticularButtonList {
     }
     
     // Encadre un texte dans une balise de paragraphe
-    searchItemFormat(area,string) {
+    searchItemFormat(string) {
         string = this.uppercaseFirstCharacter(string)
 
         let input = document.createElement("input")
             input.type = "button" 
             input.setAttribute("value",string)        
 
-        area.appendChild(input)
+        this.area.appendChild(input)
+
+        this.presetEffects(input)
         
         // Association des tags
         let tag = new Tag(this.recipes)
-        tag.tagInsertion(area.lastChild)
+        tag.tagInsertion(this.area.lastChild)
     }
 
-    searchItemFormatAll(list,area) {
-
-        let array = []
+    searchItemFormatAll(list) {
 
         for (let i = 0; i < list.length; i++) {
 
-            array+= this.searchItemFormat(area,list[i])            
+            this.searchItemFormat(list[i])            
         }
-
-        return array
     }
 
     // Effet de pré sélection sur un bouton de recherche

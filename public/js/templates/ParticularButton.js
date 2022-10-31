@@ -79,7 +79,8 @@ class ParticularButton {
                                     class="particular_search_input"  
                                     placeholder="${e.placeholder}" 
                                     value="${e.value}"                                     
-                                    data-value_initial="${e.value}" />
+                                    data-value_initial="${e.value}"
+                                    data-filtering="false" />
             <i class="fa-solid fa-chevron-up"></i>                
         </div>
         <div id="${e.name}_list" class="particular_search_list none" data-search_item="${e.searchItem}"></div>

@@ -19,8 +19,8 @@ class SearchFactory {
             this.areaToFilter.appendChild(Template.createCard())                
         } else {
 
-            Template = new ParticularButtonList(recipesDatas)
-            Template.searchItemFormat(this.areaToFilter,this.element)
+            Template = new ParticularButtonList(recipesDatas,this.areaToFilter)
+            Template.searchItemFormat(this.element)
         }
     }
 }
