@@ -79,6 +79,10 @@ class ParticularButtonList {
             input.setAttribute("value",string)        
 
         area.appendChild(input)
+        
+        // Association des tags
+        let tag = new Tag(this.recipes)
+        tag.tagInsertion(area.lastChild)
     }
 
     searchItemFormatAll(list,area) {
