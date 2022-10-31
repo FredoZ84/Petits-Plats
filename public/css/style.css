@@ -308,6 +308,44 @@ label[for="recipes_search"] {
     white-space: nowrap;  
 }
 
+#search_by_tag_area {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+#search_by_tag_area  .tag {
+    width : fit-content;
+    height: fit-content;
+    padding : 10px 20px;
+    color : white;
+    font-weight: 700;
+    border-radius : 5px;
+    font-size: 14px;
+    line-height: 17px;
+    margin-right : 10px;
+    text-align: center;
+    border: 1px solid white;
+}
+
+#search_by_tag_area .tag:hover,
+.particular_search:hover {
+    border-color: black;
+}
+
+#search_by_tag_area .tag:active {
+    opacity: 0.5;
+}
+
+#search_by_tag_area i.fa-circle-xmark{
+    margin-left: 5px;
+}
+
+#search_by_tag_area i.fa-circle-xmark:hover{
+    color: black;
+}
+
 .none {
     display: none!important;
 }
