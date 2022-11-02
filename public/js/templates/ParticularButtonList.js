@@ -48,8 +48,8 @@ class ParticularButtonList {
 
         // Filtrage des resultats ; suppression des doulons
         const filteredArray = array.filter( (ele,pos) => array.indexOf(ele) == pos)
-
-        return  filteredArray
+        
+        return  filteredArray 
     }
 
     // Mets en majuscule le premier caractère d'un mot ou d'un texte
