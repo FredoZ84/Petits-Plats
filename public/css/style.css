@@ -85,6 +85,8 @@ label[for="recipes_search"] {
 #particular_search_area {
     display: flex;
     margin-top: 10px;
+    position: absolute;
+    max-width: 1240px;
 }
 
 .particular_search {    
@@ -257,6 +259,7 @@ label[for="recipes_search"] {
 #recipes_list {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 110px;
 }
 
 .ingredients_card {
@@ -391,6 +394,11 @@ label[for="recipes_search"] {
     body {
         max-width: 80%;
     }
+
+    #particular_search_area {
+        max-width: 80%;
+    }
+    
 
     #recipes_list {
         margin: 0 auto;
