@@ -397,11 +397,10 @@ label[for="recipes_search"] {
 
     #particular_search_area {
         max-width: 80%;
-    }
-    
+    }    
 
     #recipes_list {
-        margin: 0 auto;
+        margin: 110px auto;
         justify-content: center;
     }
 
@@ -419,12 +418,17 @@ label[for="recipes_search"] {
 
     
     #particular_search_area {
+        width: 80%;
         flex-direction: column;
     }
 
     #particular_search_area>* {
         width: 100%;
         margin-bottom: 20px;
+    }
+
+    #recipes_list {
+        margin: 300px auto;
     }
 
     #recipes_list>* {

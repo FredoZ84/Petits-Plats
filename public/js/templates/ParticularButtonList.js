@@ -33,7 +33,7 @@ class ParticularButtonList {
         this.presetEffects(input)
         
         // Association des tags
-        let tag = new Tag(this.recipes)
+        let tag = new Tag(this.Recipes)
         tag.tagInsertion(this.area.lastChild)
     }
 
