@@ -90,7 +90,7 @@ class ParticularButton {
         return searchArea
     }    
 
-    // fonctionnalité des boutons ; Affichage/MAsquage   de la liste corrrespondante
+    // fonctionnalité des boutons ; Affichage/Masquage   de la liste corrrespondante
     AreaSearchEvent(area) {
 
         let inputSearch = area.children[0].children[0]
@@ -107,7 +107,8 @@ class ParticularButton {
             wrapperList.classList.remove("none")                
         })        
     }
-    
+
+    // fermeture de tous les champs de recherche
     closeArea(e) {
         let areas = Array.from(document.getElementsByClassName("particular_search"))
 

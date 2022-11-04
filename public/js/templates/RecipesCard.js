@@ -78,8 +78,7 @@ class RecipesCard {
             }
             
             result[i] = `<span class="component_title">${element.ingredient}:</span> <span class="component_quantity">${element.quantity}${element.unit}</span>
-            <br />  `             
-            
+            <br />  `           
         }
 
         return result.join("")

@@ -56,6 +56,7 @@ class Tag {
 
         this.removeTag(tag)
 
+        // Condition de reinsertion de liste en cas de filtrage
         if (inputSearch.dataset.filtering) {
 
             listArea.innerHTML = ""
@@ -65,7 +66,6 @@ class Tag {
 
             inputSearch.dataset.filtering = false
         }
-
     }
 
     // Attribution de la classe Active
@@ -145,8 +145,7 @@ class Tag {
 
     // Suppression de la classe active
     desactiveTag(tag) {
-
-
+        
         if (document.getElementsByClassName("tag")) {
             let allTags = document.getElementsByClassName("tag")
 
