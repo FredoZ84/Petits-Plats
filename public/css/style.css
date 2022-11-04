@@ -159,7 +159,27 @@ label[for="recipes_search"] {
 .particular_search_list {
     display: flex ;
     flex-wrap: wrap;
-    max-width: 510px;
+    max-width: 667px;
+    max-height: 397px;
+    overflow-y: scroll;
+    /* Works on Firefox*/
+    scrollbar-width: thin;
+}
+
+/* Works on Chrome, Edge, and Safari */
+.particular_search_list::-webkit-scrollbar {
+    width: 12px;
+    position: fixed;
+}
+
+.particular_search_list::-webkit-scrollbar-track {
+    background: inherit;
+}
+
+.particular_search_list::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 20px;
+    border: 3px solid white;
 }
 
 .particular_search_list input[type="button"] {
@@ -167,8 +187,9 @@ label[for="recipes_search"] {
     color: white;
     text-align: start;
     display: block;
-    width: 170px;
-    margin-bottom: 10px;    
+    width: 190px;
+    height: 22px;
+    margin-bottom: 10px;  
 }
 
 .particular_head input[type="search"]:focus ~ .particular_head  .particular_search_list {
@@ -200,6 +221,22 @@ label[for="recipes_search"] {
 
 .particular_search_list input[disabled="disabled"]:hover {
     opacity: 0.5;
+}
+
+
+#ingredients_list {
+    /* Works on Firefox*/
+    scrollbar-color: white #3282F7;
+}
+
+#devices_list {
+    /* Works on Firefox*/
+    scrollbar-color: white #68D9A4;
+}
+
+#ustensils_list  {
+    /* Works on Firefox*/
+    scrollbar-color: white #ED6454;
 }
 
 #ingredients_list input[type="button"]:hover,
@@ -418,7 +455,7 @@ label[for="recipes_search"] {
     }
 
     .particular_search .particular_search_list  {
-        width: 112%;
+        width: 105%;
     }
     .particular_search input {
         padding-left: 5px;
