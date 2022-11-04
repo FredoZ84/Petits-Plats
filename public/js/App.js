@@ -51,7 +51,8 @@ class App {
 
         const area = document.getElementById(buttonData.name +"_list")
         const particularButtonList = new ParticularButtonList(Datas,area)
-        const list = particularButtonList.filteredList(buttonData.searchItem)
+        const filter = new ParticularFilter(Datas,area.dataset.search_item)
+        const list = filter.filteredList(buttonData.searchItem)
         const input = document.getElementById(buttonData.name +"_search")
         
         const searchObject = new ParticularSearch(area)

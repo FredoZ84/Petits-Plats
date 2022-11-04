@@ -1,57 +1,19 @@
 class ParticularButtonList {
     constructor(Recipes,area) {
-        this.recipes = Recipes
+        this.Recipes = Recipes
         this.area = area    
     }
     
     //Retoune la liste avec l'input tag
-    init() {    
+    init() {
         
-        let filteredList = this.filteredList(this.area.dataset.search_item)// liste non formattée
+        let filter = new ParticularFilter(this.Recipes,this.area.dataset.search_item)
+        
+        let filteredList = filter.filteredList()// liste non formattée
 
         this.searchItemFormatAll(filteredList,this.area) // formattage des listes
-    }    
-
-    // Retourne la liste filtrée des éléments de recherche particulière
-    filteredList(searchItem) {
-        let array = []         
-        
-        for (let i = 0; i < this.recipes.length; i++) {
-
-            let element
-
-            switch (searchItem) {
-                case "ingredient":
-                    element = this.recipes[i].ingredients
-                    for (let object = 0; object < element.length; object++) {
-
-                        array.push(element[object][searchItem])
-                    } 
-                break
-                case "appliance":
-                    element = this.recipes[i].appliance
-                    array.push(element)
-                break
-                case "ustensils":
-                    element = this.recipes[i].ustensils
-                    for (let object = 0; object < element.length; object++) {
-
-                        array.push(element[object])
-
-                    }
-                break 
-
-                default:
-                break
-            }            
-        }
-
-        // Filtrage des resultats ; suppression des doulons
-        const filteredArray = array.filter( (ele,pos) => array.indexOf(ele) == pos)
-        
-        return  filteredArray 
-    }
-
+    } 
+    
     // Mets en majuscule le premier caractère d'un mot ou d'un texte
     uppercaseFirstCharacter(string) {
         
