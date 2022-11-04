@@ -34,7 +34,7 @@ class App {
         lists.init()*/
 
         // Filtrage de recette principal
-        const SearchRecipes = new SearchForm(recipesDatas,this.recipesSearch,this.recipesList,new RecipesSearch(recipesDatas))
+        const SearchRecipes = new SearchForm(recipesDatas,this.recipesSearch,this.recipesList,new SearchByCharacter(recipesDatas))
         SearchRecipes.render()
         
         // Filtrage de critères

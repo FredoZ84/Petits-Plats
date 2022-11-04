@@ -25,18 +25,18 @@ class ParticularButtonList {
                     element = this.recipes[i].ingredients
                     for (let object = 0; object < element.length; object++) {
 
-                        array[i] =  element[object][searchItem]
+                        array.push(element[object][searchItem])
                     } 
                 break
                 case "appliance":
                     element = this.recipes[i].appliance
-                    array[i] =  element
+                    array.push(element)
                 break
                 case "ustensils":
                     element = this.recipes[i].ustensils
                     for (let object = 0; object < element.length; object++) {
 
-                        array[i] =  element[object]
+                        array.push(element[object])
 
                     }
                 break 
