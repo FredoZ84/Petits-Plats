@@ -10,8 +10,22 @@ class SearchForm {
     search(query) {   
             
         let SearchedElements = this.SearchObject.search(query)
+
+        if (this.SearchObject.constructor.name == "SearchByCharacter" || this.SearchObject.constructor.name == "SearchByIngredient" || this.SearchObject.constructor.name == "SearchByAppliance" || this.SearchObject.constructor.name == "SearchByUstensils") {
+
+            let particularSearchList = Array.from(document.getElementsByClassName("particular_search_list"))
+
+            particularSearchList.forEach(areaList => {
+
+                areaList.innerHTML = ""
+        
+                const Template = new ParticularButtonList(SearchedElements,areaList)
+                Template.init()
+            })       
+        }
        
         this.displayList(SearchedElements)
+
     }
 
     clearAreaToFilter() {
@@ -42,12 +56,24 @@ class SearchForm {
                 } else if (query.length === 0) {
                     this.searcher.dataset.filtering = false
                     this.displayList(this.list)
+
+                    if (this.SearchObject.constructor.name == "SearchByCharacter") {
+                        let particularSearchList = Array.from(document.getElementsByClassName("particular_search_list"))
+    
+                        particularSearchList.forEach(areaList => {
+        
+                            areaList.innerHTML = ""
+                    
+                            const Template = new ParticularButtonList(this.list,areaList)
+                            Template.init()
+                        })
+                    }           
                 }                
             })
             
-        } else if (this.searcher.type == "button") { // Recherche par Tag
+        } else if (this.searcher.type == "tag") { // Recherche par Tag
             let query = this.searcher.value 
-            this.search(query)
+            this.search(query) 
         }
     }
 

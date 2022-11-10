@@ -17,21 +17,18 @@ class App {
             this.recipesList.appendChild(Template.createCard())                    
         })
 
-        // Insertion des zones de recherche par critères
+        // Insertion des champs de recherche par critères
         const particularButton = new ParticularButton()
         particularButton.init()
 
         let particularSearchList = Array.from(document.getElementsByClassName("particular_search_list"))
 
-        particularSearchList.forEach(list =>{
+        // Insertion des listes de critère aux champs de recherche pcorrespondant
+        particularSearchList.forEach(list => {
             
             const Template = new ParticularButtonList(recipesDatas,list)
             Template.init()
         })
-
-        // Insertion  des lists aux zones de recherche par critères
-        /*let lists = new ParticularButtonList(recipesDatas)
-        lists.init()*/
 
         // Filtrage de recette principal
         const SearchRecipes = new SearchForm(recipesDatas,this.recipesSearch,this.recipesList,new SearchByCharacter(recipesDatas))

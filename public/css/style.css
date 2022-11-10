@@ -373,9 +373,13 @@ label[for="recipes_search"] {
 .particular_search:hover {
     border-color: black;
 }
-
+/*
 #search_by_tag_area .tag:active {
     opacity: 0.5;
+}
+*/
+#search_by_tag_area .tag:disabled {
+    opacity: 1;
 }
 
 #search_by_tag_area i.fa-circle-xmark{

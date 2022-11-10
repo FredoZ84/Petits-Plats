@@ -23,7 +23,7 @@ class Tag {
 
     // Creation du tag et gestion de sa suppression
     createTag(e) {
-
+        
         this.disabledAttribution(e)    
 
         let listArea = e.parentElement
@@ -38,21 +38,42 @@ class Tag {
         let searchItem = searchArea.children[1].dataset.search_item // définition de l'item de recherche
         let bgColorClass = searchArea.classList[1]
 
-        let tag = document.createElement("button") 
+        let tag = document.createElement("div") 
             tag.value = e.value
             tag.innerHTML = ` <span class="tag_name">${e.value}</span> <i class="fa-regular fa-circle-xmark"></i>`
             tag.name = "recipes"
-            tag.type = "button"
+            tag.type = "tag"
             tag.setAttribute("class","tag")
             tag.setAttribute("data-search_item",searchItem)
+            //tag.setAttribute("disabled","disabled")
             tag.classList.add(bgColorClass)
             tag.referenceListArea = e.parentElement
             
         this.searchByTagArea.appendChild(tag)
 
-        this.activeTag(tag)
+        let SearchObject = null
 
-        this.activeTagEvent(tag)
+
+        switch (searchItem) {
+            case "ingredient":
+                SearchObject = new SearchByIngredient(this.Recipes)
+
+            break
+            case "appliance":
+                SearchObject = new SearchByAppliance(this.Recipes)
+                
+            break
+            case "ustensils":
+                SearchObject = new SearchByUstensils(this.Recipes)
+            break 
+        
+            default:
+                break
+        }
+
+        // Filtrage de recette principal
+        const SearchRecipes = new SearchForm(this.Recipes,tag,this.recipesList,SearchObject)
+        SearchRecipes.render()
 
         this.removeTag(tag)
 
@@ -66,31 +87,6 @@ class Tag {
 
             inputSearch.dataset.filtering = false
         }
-    }
-
-    // Attribution de la classe Active
-    activeTag(tag) {
-
-        // attribution d'un soulignage à partir du second tag
-        if (this.searchByTagArea.children.length > 1 ) {
-            tag.classList.add("underline")
-        }
-
-        tag.classList.add("active")
-        
-        this.desactiveTag(tag) 
-        
-        this.searchTag(tag)
-    }
-
-    activeTagEvent(tag) {
-
-        tag.addEventListener("click", (e) => {
-
-            e.preventDefault()
-            e.stopPropagation()  
-            this.activeTag(tag)            
-        })
     }
 
     removeTag(tag) {
@@ -143,47 +139,7 @@ class Tag {
         this.searchByTagArea.removeChild(tag)            
     }
 
-    // Suppression de la classe active
-    desactiveTag(tag) {
-        
-        if (document.getElementsByClassName("tag")) {
-            let allTags = document.getElementsByClassName("tag")
-
-            for (let i = 0; i < allTags.length; i++) {
-
-                if (tag !== allTags[i]) {
-
-                    if (allTags[i].classList.contains("active")) {
-    
-                        allTags[i].classList.remove("underline")
-                        allTags[i].classList.remove("active")        
-                    }                     
-                }                             
-            } 
-        }        
-    }
-
-    // Filtrage des recettes en fonction du tag sélectionnés
-    searchTag(tag) {
-
-            if (tag.dataset.search_item == "ingredient") {
-    
-                const ingredientContaining = new SearchForm(this.Recipes,tag,this.recipesList,new SearchByIngredient(this.Recipes))
-                ingredientContaining.render()          
-    
-            } else if(tag.dataset.search_item == "appliance") {            
-    
-                const applianceContaining = new SearchForm(this.Recipes,tag,this.recipesList,new SearchByAppliance(this.Recipes))
-                applianceContaining.render()           
-    
-            } else if (tag.dataset.search_item == "ustensils") {
-    
-                const ustensilsContaining = new SearchForm(this.Recipes,tag,this.recipesList,new SearchByUstensils(this.Recipes))
-                ustensilsContaining.render()                      
-            }
-    }
-
-    // Attribution de la propriiété "disabled" au bouton de liste selectionné et de celle title
+    // Attribution de la propriété "disabled" au bouton de liste selectionné et de celle title
     disabledAttribution(e) {
 
         e.setAttribute("disabled","disabled")

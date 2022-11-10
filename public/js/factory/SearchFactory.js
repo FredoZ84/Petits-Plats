@@ -16,10 +16,12 @@ class SearchFactory {
         if (this.searcher.name === this.mainSearch) {
 
             Template = new RecipesCard(this.element)
-            this.areaToFilter.appendChild(Template.createCard())                
+            this.areaToFilter.appendChild(Template.createCard()) 
+            
+            /* searchForm input*/
         } else {
 
-            Template = new ParticularButtonList(recipesDatas,this.areaToFilter)
+            Template = new ParticularButtonList(recipesDatas,this.areaToFilter,false)
             Template.searchItemFormat(this.element)
         }
     }

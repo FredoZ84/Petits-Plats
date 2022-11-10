@@ -1,7 +1,8 @@
 class ParticularButtonList {
     constructor(Recipes,area) {
         this.Recipes = Recipes
-        this.area = area    
+        this.area = area
+
     }
     
     //Retoune la liste avec l'input tag

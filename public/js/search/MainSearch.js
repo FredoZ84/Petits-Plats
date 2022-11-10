@@ -14,12 +14,6 @@ class RecipesSearch extends Search {
     }
 
     filterRecipes(query) {
-
-        let answer = this.Recipes.filter(Recipe =>
-            Recipe.name.toLowerCase().includes(query.toLowerCase())
-        )
-
-        console.log(answer)
         
         return this.Recipes.filter(Recipe =>
             Recipe.name.toLowerCase().includes(query.toLowerCase())
@@ -96,7 +90,7 @@ class SearchByCharacter extends Search {
 
         const array = searchName.filterRecipes(query).concat(searchByIngredient.filterRecipes(query),searchByDescription.filterRecipes(query))
                         
-        // Filtrage des resultats ; suppression des doulons
+        // Filtrage des resultats ;suppression des doulons
         const filteredArray = array.filter((ele,pos) => array.indexOf(ele) == pos)
         
         return filteredArray
