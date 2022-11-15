@@ -1,16 +1,18 @@
+/* eslint-disable indent */
+/* exported RecipesCard */
 class RecipesCard {
-    constructor(recipe) {
-        this.recipe = recipe
-    }
+	constructor(recipe) {
+		this.recipe = recipe
+	}
 
-    // Creation de cartes des recettes
-    createCard(){
+	// Creation de cartes des recettes
+	createCard(){
 
-        const card = document.createElement('div')
-                card.setAttribute("class","ingredients_card")
-                card.setAttribute("data-id",this.recipe.id)
+		const card = document.createElement("div")
+		card.setAttribute("class","ingredients_card")
+		card.setAttribute("data-id",this.recipe.id)
 
-        const recipeCard =`
+		const recipeCard =`
         
             <div class="decoration"></div>
             <div class="ingredients_descrtiption">
@@ -39,76 +41,80 @@ class RecipesCard {
                 </p>             
             </div>
         `
-        card.innerHTML = recipeCard
+		card.innerHTML = recipeCard
 
-        let preparation = card.children[1].children[1].children[1]
-        this.textReducer(preparation)
+		let preparation = card.children[1].children[1].children[1]
+		this.textReducer(preparation)
 
-        return card
-    }
+		return card
+	}
 
-    // formatage des composants des ingredients
-    components() { 
-        const array = this.recipe.ingredients
-        let result = []//
+	// formatage des composants des ingredients
+	components() { 
+		const array = this.recipe.ingredients
+		let result = []//
 
-        for (let i = 0; i < array.length; i++) {
-            const element = array[i]
+		for (let i = 0; i < array.length; i++) {
+			const element = array[i]
 
-            switch (element.unit) {
-                case undefined:
-                    element.unit = " "                  
-                    break
-                case "grammes":
-                    element.unit = "g"                  
-                    break
-                case "cuillères à soupe":
-                    element.unit = " cuillères"                 
-                break;
-                case "cuillères à café":
-                    element.unit = " cuillères"                 
-                break;
+			switch (element.unit) {
+			case undefined:
+				element.unit = " "                  
+				break
+			case "grammes":
+				element.unit = "g"                  
+				break
+			case "cuillères à soupe":
+				element.unit = " cuillères"                 
+				break
+			case "cuillères à café":
+				element.unit = " cuillères"                 
+				break
             
-                default:
-                    break;
-            }
+			default:
+				break
+			}
 
-            if (!element.hasOwnProperty('quantity')) {
-                element.quantity = " "
-            }
             
-            result[i] = `<span class="component_title">${element.ingredient}:</span> <span class="component_quantity">${element.quantity}${element.unit}</span>
+            const  hasQuantityProperty = Object.prototype.hasOwnProperty.call(element, "quantity")
+            // Si l'objet ingredients n'a pas de propriété quantity
+			if (!hasQuantityProperty) {
+
+				element.quantity = " "
+			}
+            
+			result[i] = `<span class="component_title">${element.ingredient}:</span> <span class="component_quantity">${element.quantity}${element.unit}</span>
             <br />  `           
-        }
+		}
 
-        return result.join("")
-    }
+		return result.join("")
+	}
 
-    //Reduction du texte de préparation
-    textReducer(e) { 
-        let charactersNumbers = 175 // nombre de caractères voulu pour le texte de prépatration
-        let initialText = null
+	//Reduction du texte de préparation
+	textReducer(e) { 
+		let charactersNumbers = 175 // nombre de caractères voulu pour le texte de prépatration
+		let initialText = null
         
-        if (e.textContent.length > charactersNumbers) {
+		if (e.textContent.length > charactersNumbers) {
 
-            initialText =  e.textContent//stockage du texte initial
-            e.textContent = reducer(e.textContent)
+			initialText =  e.textContent//stockage du texte initial
+			e.textContent = reducer(e.textContent)
 
-            // état visible
-            e.addEventListener("mouseover", () => {
-                e.textContent = initialText
-                e.style.overflowY = "scroll"
-            })
+			// état visible
+			e.addEventListener("mouseover", () => {
+				e.textContent = initialText
+				e.style.overflowY = "scroll"
+			})
 
-            // Retour à la reducdtion
-            e.addEventListener("mouseleave", () => {
-                e.textContent = reducer(e.textContent)
-                e.style.overflowY = "unset"
-            })
-        }        
+			// Retour à la reducdtion
+			e.addEventListener("mouseleave", () => {
+				e.textContent = reducer(e.textContent)
+				e.style.overflowY = "unset"
+			})
+		}        
 
-        function reducer(text) {
-            return text.slice(0, charactersNumbers).concat("...")
-        }
-    }
+		function reducer(text) {
+			return text.slice(0, charactersNumbers).concat("...")
+		}
+	}
 }

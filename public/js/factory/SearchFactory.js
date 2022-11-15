@@ -1,28 +1,33 @@
+/* exported SearchFactory */
+/* global RecipesCard, ParticularButtonList, Api */
 class SearchFactory {
-    constructor(searcher,areaToFilter,element){
-        this.mainSearch = "recipes"
-        this.searcher = searcher
-        this.areaToFilter = areaToFilter
-        this.element = element
-        this.recipesApi = new Api("./private/data/recipes.json")      
-    }
+	constructor(searcher,areaToFilter,element){
+		this.mainSearch = "recipes"
+		this.searcher = searcher
+		this.areaToFilter = areaToFilter
+		this.element = element
+		this.recipesApi = new Api("./private/data/recipes.json")      
+	}
 
-    async insertion() {
+	async insertion() {
 
-        const recipesDatas = await this.recipesApi.get()
+		const recipesDatas = await this.recipesApi.get()
 
-        let Template = null            
+		let Template = null            
 
-        if (this.searcher.name === this.mainSearch) {
+		if (this.searcher.name === this.mainSearch) {
 
-            Template = new RecipesCard(this.element)
-            this.areaToFilter.appendChild(Template.createCard()) 
-            
-            /* searchForm input*/
-        } else {
+			Template = new RecipesCard(this.element)
+			this.areaToFilter.appendChild(Template.createCard())
+		} else {
 
-            Template = new ParticularButtonList(recipesDatas,this.areaToFilter,false)
-            Template.searchItemFormat(this.element)
-        }
-    }
+			if (this.element.length > 0) {
+				Template = new ParticularButtonList(this.element,this.areaToFilter)
+				Template.init()
+			} else {
+				Template = new ParticularButtonList(recipesDatas,this.areaToFilter)
+				Template.init()
+			}
+		}
+	}
 }

@@ -1,14 +1,22 @@
-class Search {
+/* eslint-disable indent */
+/* exported RecipesSearch,
+    SearchByIngredient,
+    SearchByAppliance,
+    SearchByUstensils,
+    SearchByCharacter
+*/
+class MainSearch {
     constructor(Recipes) {
         this.Recipes = Recipes    
     }
 
     search(query) {
+
         return this.filterRecipes(query)
     }
 }
 
-class RecipesSearch extends Search {
+class RecipesSearch extends MainSearch {
     constructor(Recipes) {
         super(Recipes)
     }
@@ -21,7 +29,7 @@ class RecipesSearch extends Search {
     }
 }
 
-class SearchByIngredient extends Search {
+class SearchByIngredient extends MainSearch {
     constructor(Recipes) {
         super(Recipes)
     }
@@ -35,7 +43,7 @@ class SearchByIngredient extends Search {
     }  
 }
 
-class SearchByAppliance extends Search {
+class SearchByAppliance extends MainSearch {
     constructor(Recipes) {
         super(Recipes)
     }
@@ -48,7 +56,7 @@ class SearchByAppliance extends Search {
     }  
 }
 
-class SearchByUstensils extends Search {
+class SearchByUstensils extends MainSearch {
     constructor(Recipes) {
         super(Recipes)
     }
@@ -62,7 +70,7 @@ class SearchByUstensils extends Search {
     }  
 }
 
-class SearchByDescription extends Search {
+class SearchByDescription extends MainSearch {
     constructor(Recipes) {
         super(Recipes)
     }
@@ -75,7 +83,7 @@ class SearchByDescription extends Search {
     }  
 }
 
-class SearchByCharacter extends Search {
+class SearchByCharacter extends MainSearch {
     constructor(Recipes) {
         super(Recipes)
     }

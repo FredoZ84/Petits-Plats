@@ -1,62 +1,108 @@
+/*  global Api, 
+    RecipesCard, 
+    ParticularButton, 
+    ParticularButtonList, 
+    SearchForm, 
+    SearchByCharacter, 
+    ParticularFilter , 
+    SearchByIngredient, 
+    SearchByAppliance,
+    SearchByUstensils 
+*/
 class App {
-    constructor() {
-        this.recipesSearch = document.getElementById("recipes_search")
-        this.recipesList = document.getElementById("recipes_list")
-        this.recipesApi = new Api("./private/data/recipes.json")
-    }
+	constructor() {
+		this.recipesSearch = document.getElementById("recipes_search")
+		this.recipesList = document.getElementById("recipes_list")
+		this.recipesApi = new Api("./private/data/recipes.json")
+	}
 
-    async main() {
+	async main() {
 
-        // Recupération des données
-        const recipesDatas = await this.recipesApi.get()
+		// Recupération des données
+		const recipesDatas = await this.recipesApi.get()
         
-        // Insertion des recettes
-        recipesDatas.forEach(recipe => {
+		// Insertion des recettes
+		recipesDatas.forEach(recipe => {
 
-            const Template = new RecipesCard(recipe)
-            this.recipesList.appendChild(Template.createCard())                    
-        })
+			const Template = new RecipesCard(recipe)
+			this.recipesList.appendChild(Template.createCard())                    
+		})
 
-        // Insertion des champs de recherche par critères
-        const particularButton = new ParticularButton()
-        particularButton.init()
+		// Insertion des champs de recherche par critères
+		const particularButton = new ParticularButton()
+		particularButton.init()
 
-        let particularSearchList = Array.from(document.getElementsByClassName("particular_search_list"))
+		let particularSearchList = Array.from(document.getElementsByClassName("particular_search_list"))
 
-        // Insertion des listes de critère aux champs de recherche pcorrespondant
-        particularSearchList.forEach(list => {
+		// Insertion des listes de critère aux champs de recherche pcorrespondant
+		particularSearchList.forEach(list => {
             
-            const Template = new ParticularButtonList(recipesDatas,list)
-            Template.init()
-        })
+			const Template = new ParticularButtonList(recipesDatas,list)
+			Template.init()
+		})
 
-        // Filtrage de recette principal
-        const SearchRecipes = new SearchForm(recipesDatas,this.recipesSearch,this.recipesList,new SearchByCharacter(recipesDatas))
-        SearchRecipes.render()
+		const SearchRecipes = new SearchForm(recipesDatas,this.recipesSearch,this.recipesList,new SearchByCharacter(recipesDatas))                   
+		SearchRecipes.render()        
         
-        // Filtrage de critères
-        const  particularDatas = particularButton.datas()
+		// Filtrage de critères
+		const particularDatas = particularButton.datas()
+		const particularSearchInput = Array.from(document.getElementsByClassName("particular_search_input"))
 
-        particularDatas.forEach(particularData => {
+		for (let i = 0; i < particularSearchInput.length; i++) {
 
-            this.searchListParticular(recipesDatas,particularData) 
-        }) 
-    }
+			particularSearchInput[i].data = particularDatas[i]
+		}        
 
-    // Methide de filtrage de critère
-    searchListParticular(Datas,buttonData) {
+		particularSearchInput.forEach(input => {
 
-        const area = document.getElementById(buttonData.name +"_list")
-        const particularButtonList = new ParticularButtonList(Datas,area)
-        const filter = new ParticularFilter(Datas,area.dataset.search_item)
-        const list = filter.filteredList(buttonData.searchItem)
-        const input = document.getElementById(buttonData.name +"_search")
+			input.addEventListener("focus",()=>{
+				if (this.recipesSearch.dataset.filtering) {
+
+					const newRecipesDatas = new SearchByCharacter(recipesDatas).filterRecipes(this.recipesSearch.value)                    
+
+					this.searchListParticular(newRecipesDatas,input.data)  
+                    
+				} else {     
+					this.searchListParticular(recipesDatas,input.data)    
+				}                
+			}) 
+		})               
+	}
+
+	// Methide de filtrage de critère
+	searchListParticular(Datas,buttonData) {        
+
+		const area = document.getElementById(buttonData.name +"_list")
+		const filter = new ParticularFilter(Datas,area.dataset.search_item)
+		const list = filter.filteredList(buttonData.searchItem)
+		const input = document.getElementById(buttonData.name +"_search")
         
-        const searchObject = new ParticularSearch(area)
+		let searchObject = null
 
-        const SearchElements = new SearchForm(list,input,area,searchObject)
-        SearchElements.render() 
-    }
+		switch (buttonData.searchItem) {
+		case "ingredient":
+
+			searchObject = new SearchByIngredient(Datas)
+
+			break
+		case "appliance":
+
+			searchObject = new SearchByAppliance(Datas)
+                
+			break
+		case "ustensils":
+
+			searchObject = new SearchByUstensils(Datas)
+			break 
+
+		default:
+			break
+		}
+
+		const SearchElements = new SearchForm(list,input,area,searchObject)
+        
+		SearchElements.render() 
+	}
 }
 
 const app = new App()

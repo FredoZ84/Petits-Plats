@@ -1,63 +1,85 @@
+/* exported ParticularButtonList */
+/* global ParticularFilter, Tag  */
 class ParticularButtonList {
-    constructor(Recipes,area) {
-        this.Recipes = Recipes
-        this.area = area
-
-    }
+	constructor(Recipes,area) {
+		this.Recipes = Recipes
+		this.area = area
+		this.particularSearchArea = document.getElementById("particular_search_area")
+	}
     
-    //Retoune la liste avec l'input tag
-    init() {
+	//Retoune la liste avec l'input tag
+	init() {
         
-        let filter = new ParticularFilter(this.Recipes,this.area.dataset.search_item)
+		let filter = new ParticularFilter(this.Recipes,this.area.dataset.search_item)
         
-        let filteredList = filter.filteredList()// liste non formattée
+		let filteredList = filter.filteredList()// liste non formattée
 
-        this.searchItemFormatAll(filteredList,this.area) // formattage des listes
-    } 
+		this.searchItemFormatAll(filteredList,this.area) // formattage des listes
+	} 
     
-    // Mets en majuscule le premier caractère d'un mot ou d'un texte
-    uppercaseFirstCharacter(string) {
+	// Mets en majuscule le premier caractère d'un mot ou d'un texte
+	uppercaseFirstCharacter(string) {
         
-        return string[0].toUpperCase() +  string.slice(1)
-    }
+		return string[0].toUpperCase() +  string.slice(1)
+	}
     
-    // Encadre un texte dans une balise de paragraphe
-    searchItemFormat(string) {
-        string = this.uppercaseFirstCharacter(string)
+	// Encadre un texte dans une balise de paragraphe
+	searchItemFormat(string) {
+		string = this.uppercaseFirstCharacter(string)
 
-        let input = document.createElement("input")
-            input.type = "button" 
-            input.setAttribute("value",string)        
+		let input = document.createElement("input")
+		input.type = "button" 
+		input.setAttribute("value",string)  
+		input.setAttribute("class","criterion")      
 
-        this.area.appendChild(input)
+		this.area.appendChild(input)
 
-        this.presetEffects(input)
+		this.presetEffects(input)
         
-        // Association des tags
-        let tag = new Tag(this.Recipes)
-        tag.tagInsertion(this.area.lastChild)
-    }
+		// Association des tags
+		let tag = new Tag(this.Recipes)
+		tag.tagInsertion(this.area.lastChild)
+	}
 
-    searchItemFormatAll(list) {
+	searchItemFormatAll(list) {
 
-        for (let i = 0; i < list.length; i++) {
+		for (let i = 0; i < list.length; i++) {
 
-            this.searchItemFormat(list[i])            
-        }
-    }
+			this.searchItemFormat(list[i])            
+		}
 
-    // Effet de pré sélection sur un bouton de recherche
-    presetEffects(searchItem) {
-        // Post- création
-        let inputSearch = searchItem.parentElement.previousElementSibling.firstElementChild 
+		/*Navigation par clavier, à la sortie du dernier critère de la dernière zone,
+        retour au focus de la recherche principale*/
+        
+		const AllParticularSearchList  = document.getElementsByClassName("particular_search_list")
+		const lastParticularSearchList = AllParticularSearchList[AllParticularSearchList.length - 1]
 
-        searchItem.addEventListener("mouseover", temporaryValue)
+		if (this.area == lastParticularSearchList) {
 
-        searchItem.addEventListener("focus", temporaryValue)
+			const ultimateCriterion = this.area.lastChild
+			ultimateCriterion.addEventListener("focus", () => {
+				ultimateCriterion.addEventListener("keyup", (e)=> {
+					if (e.key == "Tab") {
+						const recipesSearch = document.getElementById("recipes_search")
+						recipesSearch.focus()
+					}
+				})
+			})
+		}  
+	}
 
-        //Affectation d'une valeur temporaire
-        function temporaryValue(e) {
-            inputSearch.value = e.target.value
-        } 
-    }
+	// Effet de pré sélection sur un bouton de recherche
+	presetEffects(searchItem) {
+		// Post- création
+		let inputSearch = searchItem.parentElement.previousElementSibling.firstElementChild 
+
+		searchItem.addEventListener("mouseover", temporaryValue)
+
+		searchItem.addEventListener("focus", temporaryValue)
+
+		//Affectation d'une valeur temporaire
+		function temporaryValue(e) {
+			inputSearch.value = e.target.value
+		} 
+	}
 }

@@ -315,6 +315,24 @@ label[for="recipes_search"] {
     font-weight: 400;
     font-size: 12px;
     line-height: 100%;
+    /* Works on Firefox*/
+    scrollbar-width: thin;
+}
+
+/* Works on Chrome, Edge, and Safari */
+.ingredients_descrtiption .preparation::-webkit-scrollbar {
+    width: 5px;
+    position: fixed;
+}
+
+.ingredients_descrtiption .preparation::-webkit-scrollbar-track {
+    background: inherit;
+}
+
+.ingredients_descrtiption .preparation::-webkit-scrollbar-thumb {
+    background-color: grey;
+    border-radius: 20px;
+    border: 1px solid grey;
 }
 
 .ingredients_descrtiption p {
