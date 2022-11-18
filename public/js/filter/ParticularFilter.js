@@ -16,7 +16,7 @@ class ParticularFilter {
 				switch (this.searchItem) {
 				case "ingredient":
 					elements = recipe.ingredients
-
+					
 					elements.forEach(element => {
 
 						array.push(element[this.searchItem])
@@ -42,8 +42,8 @@ class ParticularFilter {
 			})
 
 		// Filtrage des resultats ; suppression des doulons
-		const filteredArray = array.filter( (ele,pos) => array.indexOf(ele) == pos)
-        
-		return  filteredArray 
+		const filteredArray = array.filter((ele,pos) => array.indexOf(ele) == pos)
+			
+		return  filteredArray
 	}
 }

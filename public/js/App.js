@@ -5,9 +5,7 @@
     SearchForm, 
     SearchByCharacter, 
     ParticularFilter , 
-    SearchByIngredient, 
-    SearchByAppliance,
-    SearchByUstensils 
+    ParticularSearch
 */
 class App {
 	constructor() {
@@ -41,6 +39,7 @@ class App {
 			Template.init()
 		})
 
+		// Opération du sytème de recherche
 		const SearchRecipes = new SearchForm(recipesDatas,this.recipesSearch,this.recipesList,new SearchByCharacter(recipesDatas))                   
 		SearchRecipes.render()        
         
@@ -77,32 +76,14 @@ class App {
 		const list = filter.filteredList(buttonData.searchItem)
 		const input = document.getElementById(buttonData.name +"_search")
         
-		let searchObject = null
-
-		switch (buttonData.searchItem) {
-		case "ingredient":
-
-			searchObject = new SearchByIngredient(Datas)
-
-			break
-		case "appliance":
-
-			searchObject = new SearchByAppliance(Datas)
-                
-			break
-		case "ustensils":
-
-			searchObject = new SearchByUstensils(Datas)
-			break 
-
-		default:
-			break
-		}
+		let searchObject = new ParticularSearch(area)
 
 		const SearchElements = new SearchForm(list,input,area,searchObject)
         
 		SearchElements.render() 
 	}
+
+    
 }
 
 const app = new App()

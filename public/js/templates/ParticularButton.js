@@ -107,7 +107,7 @@ class ParticularButton {
 				inputSearch.value = inputSearch.dataset.value_initial
 
 				let wrapperList = area.children[1]
-				wrapperList.classList.add("none")                
+				wrapperList.classList.add("none")              
 			} 
 		})
 	}

@@ -14,7 +14,7 @@ class ParticularButtonList {
         
 		let filteredList = filter.filteredList()// liste non formattée
 
-		this.searchItemFormatAll(filteredList,this.area) // formattage des listes
+		this.searchItemFormatAll(filteredList) // formattage des listes
 	} 
     
 	// Mets en majuscule le premier caractère d'un mot ou d'un texte
