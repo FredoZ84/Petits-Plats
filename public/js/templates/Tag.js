@@ -232,6 +232,7 @@ class Tag {
 				const lastTag = allTags[0]	
 				// recherches des tag restants		
 				this.tagSearch(lastTag,lastTag.searchRecipeList)
+			}
 				
 			
 		}

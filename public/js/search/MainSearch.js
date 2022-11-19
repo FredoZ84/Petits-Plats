@@ -98,5 +98,27 @@ class SearchByUstensils extends MainSearch {
         }
         
         return answer       
+    }
+}
+
+class SearchByCharacter extends MainSearch {
+    constructor(Recipes) {
+        super(Recipes)
+    }
+
+    filterRecipes(query) {
+
+        const searchName = new RecipesSearch(this.Recipes)
+
+        const searchByIngredient =  new SearchByIngredient(this.Recipes)
+
+        const searchByDescription = new SearchByDescription(this.Recipes)
+
+        const array = searchName.filterRecipes(query).concat(searchByIngredient.filterRecipes(query),searchByDescription.filterRecipes(query))
+                        
+        // Filtrage des resultats ;suppression des doulons
+        const filteredArray = array.filter((ele,pos) => array.indexOf(ele) == pos)
+        
+        return filteredArray
     }  
 }
