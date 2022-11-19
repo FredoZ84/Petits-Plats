@@ -11,7 +11,6 @@ class MainSearch {
     }
 
     search(query) {
-
         return this.filterRecipes(query)
     }
 }
@@ -22,10 +21,18 @@ class RecipesSearch extends MainSearch {
     }
 
     filterRecipes(query) {
+
+        let answer = []
+
+        for (let i = 0; i < this.Recipes.length; i++) {
+                
+            if (this.Recipes[i].name.toLowerCase().includes(query.toLowerCase())) {                    
+
+                answer.push(this.Recipes[i])
+            }        
+        } 
         
-        return this.Recipes.filter(Recipe =>
-            Recipe.name.toLowerCase().includes(query.toLowerCase())
-        )
+        return answer
     }
 }
 
@@ -35,11 +42,19 @@ class SearchByIngredient extends MainSearch {
     }
 
     filterRecipes(query) {
+
+        let answer = []
         
-        return this.Recipes.filter(Recipe => {
-            return Recipe.ingredients.some(ingredient =>
-              ingredient.ingredient.toLowerCase().includes(query.toLowerCase()))
-        })        
+        for (let i = 0; i < this.Recipes.length; i++) {
+            for (let a = 0; a < this.Recipes[i].ingredients.length; a++) {
+                if (this.Recipes[i].ingredients[a].ingredient.toLowerCase().includes(query.toLowerCase())) { 
+
+                    answer.push(this.Recipes[i])
+                } 
+            }            
+        }
+        
+        return answer
     }  
 }
 
@@ -50,9 +65,17 @@ class SearchByAppliance extends MainSearch {
 
     filterRecipes(query) {
         
-        return this.Recipes.filter(Recipe =>
-            Recipe.appliance.toLowerCase().includes(query.toLowerCase())
-        )
+        let answer = []
+
+        for (let i = 0; i < this.Recipes.length; i++) {
+                
+            if (this.Recipes[i].appliance.toLowerCase().includes(query.toLowerCase())) {                    
+
+                answer.push(this.Recipes[i])
+            }      
+        } 
+        
+        return answer
     }  
 }
 
@@ -63,44 +86,17 @@ class SearchByUstensils extends MainSearch {
 
     filterRecipes(query) {
         
-        return this.Recipes.filter(Recipe => {
-            return Recipe.ustensils.some(ustensil =>
-              ustensil.toLowerCase().includes(query.toLowerCase()))
-        })        
-    }  
-}
-
-class SearchByDescription extends MainSearch {
-    constructor(Recipes) {
-        super(Recipes)
-    }
-
-    filterRecipes(query) {
+        let answer = []
         
-        return this.Recipes.filter(Recipe =>
-            Recipe.description.toLowerCase().includes(query.toLowerCase())
-        )
-    }  
-}
+        for (let i = 0; i < this.Recipes.length; i++) {
+            for (let a = 0; a < this.Recipes[i].ustensils.length; a++) {
+                if (this.Recipes[i].ustensils[a].toLowerCase().includes(query.toLowerCase())) { 
 
-class SearchByCharacter extends MainSearch {
-    constructor(Recipes) {
-        super(Recipes)
-    }
-
-    filterRecipes(query) {
-
-        const searchName = new RecipesSearch(this.Recipes)
-
-        const searchByIngredient =  new SearchByIngredient(this.Recipes)
-
-        const searchByDescription = new SearchByDescription(this.Recipes)
-
-        const array = searchName.filterRecipes(query).concat(searchByIngredient.filterRecipes(query),searchByDescription.filterRecipes(query))
-                        
-        // Filtrage des resultats ;suppression des doulons
-        const filteredArray = array.filter((ele,pos) => array.indexOf(ele) == pos)
+                    answer.push(this.Recipes[i])
+                } 
+            }            
+        }
         
-        return filteredArray
+        return answer       
     }  
 }

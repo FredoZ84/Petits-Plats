@@ -5,8 +5,15 @@ class ParticularSearch  {
 	}
 
 	search(query) {
-		return this.elements.filter(element =>
-			element.toLowerCase().includes(query.toLowerCase())    
-		)
+		let answer = []
+
+		for (let i = 0; i < this.elements.length; i++) {
+			if (this.elements[i].toLowerCase().includes(query.toLowerCase())) {                    
+
+				answer.push(this.elements[i])
+			}                       
+		}
+        
+		return answer
 	}
 }
