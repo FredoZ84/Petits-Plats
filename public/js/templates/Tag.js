@@ -189,18 +189,17 @@ class Tag {
 
 				for (let i = 0; i < allTags.length; i++) {
 					const elements = allTags[i]
-					console.log(elements)
 
 					this.tagSearch(elements,elements.searchRecipeList)					
 					
 				}
-			} else if (allTags.length === 1 )   {
+			}/* else if (allTags.length === 1 )   {
 				const lastTag = allTags[0]	
 				// recherches des tag restants		
 				this.tagSearch(lastTag,lastTag.searchRecipeList)
 				
 				
-			} else {
+			} */else {
 				this.recipeSearchEffects("activation")
 				let areaToFilter = document.getElementById("recipes_list")
 				areaToFilter.innerHTML = ""
@@ -223,7 +222,6 @@ class Tag {
 
 				for (let i = 0; i < allTags.length; i++) {
 					const elements = allTags[i]
-					console.log(elements)
 
 					this.tagSearch(elements,elements.searchRecipeList)					
 					
