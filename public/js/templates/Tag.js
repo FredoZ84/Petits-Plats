@@ -127,7 +127,6 @@ class Tag {
 		return tag
 	}
 
-
 	removeTag(tag) {
 
 		tag.children[1].addEventListener("click", (e) => {
@@ -170,7 +169,7 @@ class Tag {
 			let allTags = Array.from(document.getElementsByClassName("tag"))
 
 			if (allTags.length > 1) {
-				console.log(allTags[0].searchRecipeList)
+
 				return allTags[0].searchRecipeList
 			}
 		}
@@ -189,18 +188,17 @@ class Tag {
 
 				for (let i = 0; i < allTags.length; i++) {
 					const elements = allTags[i]
-					console.log(elements)
 
 					this.tagSearch(elements,elements.searchRecipeList)					
 					
 				}
-			} else if (allTags.length === 1 )   {
+			} /*else if (allTags.length === 1 )   {
 				const lastTag = allTags[0]	
 				// recherches des tag restants		
 				this.tagSearch(lastTag,lastTag.searchRecipeList)
 				
 				
-			} else {
+			} */else {
 				this.recipeSearchEffects("activation")
 				let areaToFilter = document.getElementById("recipes_list")
 				areaToFilter.innerHTML = ""
