@@ -88,7 +88,6 @@ class Tag {
 	recipeSearchEffects(e) {
 
 		const desactivation = {
-			diasbled:"disabled",
 			title:"pour effectuer une nouvelle recherche veuillez actualiser",
 			class: "clearUp"
 		}
@@ -99,6 +98,7 @@ class Tag {
 				this.recipeSearch.setAttribute(property, desactivation[property])
 			}		
 			
+			this.recipeSearch.disabled = true
 			this.recipeSearch.nextElementSibling.setAttribute("class", desactivation.class)
 			
 		} else if (e == "activation") {
@@ -107,9 +107,9 @@ class Tag {
 				this.recipeSearch.removeAttribute(property, desactivation[property])
 			}		
 			
+			this.recipeSearch.disabled = false
 			this.recipeSearch.nextElementSibling.removeAttribute("class", desactivation.class)
 		}
-
 	}
 
 	tagFormat(value, searchItem, bgColorClass,listArea) {
@@ -154,12 +154,17 @@ class Tag {
 		// Suppression de la propriété disabled du bouton de référence
 		this.removeDisabledAttribution(referenceElement)
 
+		//Determination de la première liste
+		const originalRecipesList = this.originalRecipesList()
+
+		// Stockage de la liste supprimé
+		const deletedList = tag.searchRecipeList
+
 		// Suppression du tag
 		this.searchByTagArea.removeChild(tag)
 
-		this.originalRecipesList()
 		//Mise à jour de la recherche 
-		this.searchUpdate()	
+		this.searchUpdate(originalRecipesList,deletedList)	
 		
 	}
 
@@ -168,7 +173,7 @@ class Tag {
 
 			let allTags = Array.from(document.getElementsByClassName("tag"))
 
-			if (allTags.length > 1) {
+			if (allTags.length > 0) {
 
 				return allTags[0].searchRecipeList
 			}
@@ -176,61 +181,55 @@ class Tag {
 	}
 
 	//Mise à jour lors de la suppression des tags
-	searchUpdate() {
+	searchUpdate(originalRecipesList,deletedList) {
 
 		const recipesSearch = document.getElementById("recipes_search")
+		const allTags = Array.from(document.getElementsByClassName("tag"))
+		const lastTag = allTags[allTags.length - 1]
+		const singleTag = allTags[0]
+		let areaToFilter = document.getElementById("recipes_list")
 
-		if (recipesSearch.value == "") {
-			let allTags = Array.from(document.getElementsByClassName("tag"))
-			allTags[0].searchRecipeList = this.originalRecipesList()
+		if (recipesSearch.value == "") {					
 			
-			if (allTags.length > 1 ) {					
+			if (allTags.length > 1 ) {				
 
-				for (let i = 0; i < allTags.length; i++) {
-					const elements = allTags[i]
-
-					this.tagSearch(elements,elements.searchRecipeList)					
-					
-				}
-			} /*else if (allTags.length === 1 )   {
-				const lastTag = allTags[0]	
-				// recherches des tag restants		
+				lastTag.searchRecipeList = deletedList			
 				this.tagSearch(lastTag,lastTag.searchRecipeList)
+
+			} else if (allTags.length === 1 )   {				
 				
+				singleTag.searchRecipeList = originalRecipesList
+				this.tagSearch(singleTag,singleTag.searchRecipeList)				
 				
-			} */else {
+			} else {
+
 				this.recipeSearchEffects("activation")
-				let areaToFilter = document.getElementById("recipes_list")
+				
 				areaToFilter.innerHTML = ""
 
 				const reset = new SearchFactory(this.recipeSearch,areaToFilter,null)
 				reset.insertion()
 			}
 		} else {
-			let areaToFilter = document.getElementById("recipes_list")
-			const originalRecipesList = this.originalRecipesList()
+			
 			let searchObject = new SearchByCharacter(originalRecipesList)
 
 			const SearchRecipes = new SearchForm(originalRecipesList,recipesSearch,areaToFilter,searchObject)                   
 			SearchRecipes.render()  
-
-			let allTags = Array.from(document.getElementsByClassName("tag"))
-			allTags[0].searchRecipeList = this.originalRecipesList()
 			
-			if (allTags.length > 1 ) {					
+			if (allTags.length > 1 ) {
 
-				for (let i = 0; i < allTags.length; i++) {
-					const elements = allTags[i]
-					console.log(elements)
+				lastTag.searchRecipeList = deletedList
+				this.tagSearch(lastTag,lastTag.searchRecipeList)	
 
-					this.tagSearch(elements,elements.searchRecipeList)					
-					
-				}
 			} else if (allTags.length === 1 )   {
-				const lastTag = allTags[0]	
-				// recherches des tag restants		
-				this.tagSearch(lastTag,lastTag.searchRecipeList)
-			}	
+				
+				singleTag.searchRecipeList = originalRecipesList
+				this.tagSearch(singleTag,singleTag.searchRecipeList)				
+				
+			} else {
+				this.recipeSearchEffects("activation")
+			}
 		}
 	}
 
